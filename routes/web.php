@@ -391,6 +391,8 @@ Route::group([
             ->name('patients.update');
         Route::get('patients/{patient}/edit', 'PatientController@edit')
             ->name('patients.edit');
+        Route::get('patients/{radio_test}/radiology-test', 'PatientController@radiologyTest')
+            ->name('patients.edit');
         Route::post('patients/{patient}/active-deactive', 'PatientController@activeDeactiveStatus');
         Route::get('export-patients', 'PatientController@patientExport')->name('patient.excel');
 

@@ -89,9 +89,11 @@ class ReferralController extends AppBaseController
      * @return JsonResponse
      */
 
-    public function edit(Referral $referral)
+    public function edit($id,Referral $referral)
     {
-        return $this->sendResponse($referral, 'Doctor Referral retrieved successfully.');
+        $doctorReferral = Referral::find($id);
+        // dd($doctorReferral);
+        return $this->sendResponse($doctorReferral, 'Doctor Referral retrieved successfully.');
     }
 
     /**
@@ -128,7 +130,7 @@ class ReferralController extends AppBaseController
         if ($result) {
             return $this->sendError('Doctor Designation can\'t be deleted.');
         }
-        $doctorDepartment->delete();
+        $referral->delete();
 
         return $this->sendSuccess('Doctor Designation deleted successfully.');
     }

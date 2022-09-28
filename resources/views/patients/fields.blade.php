@@ -60,6 +60,12 @@
             {{ Form::select('blood_group', $bloodGroup, null, ['class' => 'form-select form-select-solid fw-bold', 'id' => 'bloodGroup', 'placeholder' => 'Select Blood Group', 'data-control' => 'select2', 'tabindex' => "9"]) }}
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="form-group mb-5">
+            {{ Form::label('patient_referral', __('messages.user.patient_referral').':', ['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
+            {{ Form::select('patient_referral', $doctorReferrals, null, ['class' => 'form-select form-select-solid fw-bold', 'id' => 'bloodGroup', 'placeholder' => 'Select Referral', 'data-control' => 'select2', 'tabindex' => "9"]) }}
+        </div>
+    </div>
     <div class="col-md-3">
         <div class="form-group mb-5" data-kt-password-meter="true">
             {{ Form::label('password', __('messages.user.password').':', ['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
@@ -128,6 +134,47 @@
         </div>
     </div>
 </div>
+<hr>
+<div class="row mt-3 mb-5">
+    <div class="col-md-12 mb-3">
+        <h5>Test</h5>
+    </div>
+    <!-- <div class="col-md-6">
+        <div class="form-group mb-5">
+             {{ Form::label('patient_test', __('messages.user.patient_test').':', ['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
+            {{ Form::select('patient_test', $doctorRadiologyTest, null, ['class' => 'form-select form-select-solid fw-bold', 'id' => 'patientTest', 'placeholder' => 'Select Test', 'data-control' => 'select2', 'tabindex' => "9"]) }}
+        </div>
+    </div> -->
+</div>
+<div class="row mt-3 mb-5">
+    <div class="col-md-3">
+        {{ Form::select('patient_test[]', $doctorRadiologyTest, null, ['class' => 'form-select form-select-solid fw-bold', 'id' => 'patientTest', 'placeholder' => 'Select Test', 'data-control' => 'select2', 'tabindex' => "9"]) }}
+    </div>
+    <div class="col-md-3">
+        {{ Form::text('nameTest[]', null, ['class' => 'form-control form-control-solid nameTest', 'id' => 'nameTest', 'placeholder' => 'Name', 'autocomplete' => 'off', 'tabindex' => '4']) }}
+    </div>
+    <div class="col-md-3">
+        {{ Form::text('Fee[]', null, ['class' => 'form-control form-control-solid fee', 'id' => 'Fee', 'placeholder' => 'Fee', 'autocomplete' => 'off', 'tabindex' => '4']) }}
+    </div>
+     <div class="col-md-3">
+       {{ Form::select('discount_by[]', [ 0 => 'Gilani Altrasound', 1 => 'Referral'], null, ['class' => 'form-select form-select-solid fw-bold discountBy', 'id' => 'discountBy', 'placeholder' => 'Discount by', 'data-control' => 'select2', 'tabindex' => "9"]) }}
+    </div>
+    <div class="col-md-3 mt-3">
+        {{ Form::text('Discount[]', null, ['class' => 'form-control form-control-solid discount', 'placeholder' => 'Discount', 'autocomplete' => 'off', 'tabindex' => '4']) }}
+    </div>
+    <div class="col-md-3 mt-3">
+        {{ Form::text('NetAmount[]', null, ['class' => 'form-control form-control-solid netAmount', 'id' => 'NetAmount', 'placeholder' => 'NetAmount', 'autocomplete' => 'off', 'tabindex' => '4']) }}
+    </div>
+</div>
+<div id="newRow">
+    
+</div>
+<div class="row mt-3 mb-5">
+    <div class="col-md-12">
+         <button id="addRow" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add More</button>
+    </div>
+</div>
+
 <hr>
 <div class="row mt-3 mb-5">
     <div class="col-md-12 mb-3">

@@ -172,6 +172,8 @@ return [
         'qualification'         => 'Qualification',
         'dob'                   => 'Date Of Birth',
         'blood_group'           => 'Blood Group',
+        'patient_referral'      => 'Patient Referral',
+        'patient_test'          => 'Patient Test',
         'select_blood_group'    => 'Select Blood Group',
         'password'              => 'Password',
         'password_confirmation' => 'Confirm Password',

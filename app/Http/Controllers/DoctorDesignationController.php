@@ -127,7 +127,7 @@ class DoctorDesignationController extends AppBaseController
         if ($result) {
             return $this->sendError('Doctor Designation can\'t be deleted.');
         }
-        $doctorDepartment->delete();
+        $doctorDesignation->delete();
 
         return $this->sendSuccess('Doctor Designation deleted successfully.');
     }

@@ -34,9 +34,9 @@ $(document).ready(function () {
             {
                 data: function (row) {
                     let showLink = doctorDepartmentUrl + '/' + row.id;
-                    return '<a href="' + showLink + '">' + row.title + '</a>';
+                    return '<a href="' + showLink + '">' + row.name + '</a>';
                 },
-                name: 'title',
+                name: 'name',
             },
             {
                 data: function (row) {
@@ -105,8 +105,8 @@ $(document).ready(function () {
             success: function (result) {
                 if (result.success) {
                     $('#doctorDepartmentId').val(result.data.id);
-                    $('#editTitle').val(result.data.title);
-                    $('#editDescription').val(result.data.description);
+                    $('#editTitle').val(result.data.name);
+                    $('#editDescription').val(result.data.designation_id);
                     $('#editModal').modal('show');
                     ajaxCallCompleted();
                 }

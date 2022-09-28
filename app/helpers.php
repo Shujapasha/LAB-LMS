@@ -6,6 +6,7 @@ use App\Models\DoctorDepartment;
 use App\Models\DoctorDesignation;
 use App\Models\DoctorCategory;
 use App\Models\RadiologyCategory;
+use App\Models\RadiologyTest;
 use App\Models\FrontSetting;
 use App\Models\Notification;
 use App\Models\Patient;
@@ -17,6 +18,7 @@ use App\Models\SubscriptionPlan;
 use App\Models\SuperAdminSetting;
 use App\Models\User;
 use App\Models\VaccinatedPatients;
+use App\Models\Referral;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Builder;
@@ -283,6 +285,25 @@ function getRadiologyCateNo()
     $serial_no = RadiologyCategory::select('serial_no')->orderBy('serial_no','desc')->take(1)->value('serial_no');
     $serial = ($serial_no)? $serial_no + 1 : 121001;
     return $serial;
+}
+
+/**
+ * @return DoctorReferral
+ */
+function getDoctorsReferrals()
+{
+    /** @var DoctorCategory $doctorReferral */
+    $doctorReferral = Referral::all()->pluck('name', 'id')->sort();
+
+    return $doctorReferral;
+}
+
+function getRadiologyTest()
+{
+    /** @var RadioologyTest $radiologyTest */
+    $radiologyTest = RadiologyTest::all()->pluck('test_name', 'id')->sort();
+
+    return $radiologyTest;
 }
 
 /**

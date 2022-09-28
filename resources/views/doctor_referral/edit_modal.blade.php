@@ -26,12 +26,28 @@
                 <div class="row">
                     {{ Form::hidden('doctor_designation_id',null,['id'=>'doctorDepartmentId']) }}
                     <div class="form-group col-sm-12 mb-5">
-                        {{ Form::label('name', __('messages.appointment.doctor_designation').(':'), ['class' => 'form-label required fs-6 fw-bolder text-gray-700 mb-3']) }}
-                        {{ Form::text('name', null, ['class' => 'form-control form-control-solid','required','id' =>'editTitle']) }}
+                        {{ Form::label('name', __('messages.doctor_referral.name').(':'), ['class' => 'form-label required fs-6 fw-bolder text-gray-700 mb-3']) }}
+                        {{ Form::text('name', null, ['class' => 'form-control form-control-solid', 'id' => 'editname','required']) }}
                     </div>
                     <div class="form-group col-sm-12 mb-5">
-                        {{ Form::label('designation_id', __('messages.doctor_designation.designation_id').(':'),['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
-                        {{ Form::text('designation_id', null, ['class' => 'form-control form-control-solid', 'id' =>'editDescription', 'readonly']) }}
+                        {{ Form::label('email', __('messages.user.email').':', ['class' => 'form-label required fs-6 fw-bolder text-gray-700 mb-3']) }}
+                        {{ Form::email('email', null, ['class' => 'form-control form-control-solid', 'id' => 'editemail', 'required']) }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-5">
+                        {{ Form::label('phone', __('messages.doctor_referral.phone_no').(':'),['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
+                        {{ Form::text('phone', null, ['class' => 'form-control form-control-solid', 'id' => 'editprefix', 'required']) }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-5">
+                        {{ Form::label('location', __('messages.doctor_referral.location').(':'),['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
+                        {{ Form::text('location', null, ['class' => 'form-control form-control-solid', 'id' => 'editlocation', 'required']) }}
+                    </div>
+                    <div class="form-group col-sm-12  mb-5">
+                        {{ Form::label('category', __('messages.doctor_referral.category').':', ['class' => 'form-label required fs-6 fw-bolder text-gray-700 mb-3']) }}
+                        {{ Form::select('category', ['internal' => 'Internal', 'shared' => 'Shared'], null, ['class' => 'form-select form-select-solid', 'id' => 'editcategory', 'placeholder' => 'Select Category', 'data-control' => 'select2','required']) }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-5 hide">
+                        {{ Form::label('shared_in_amount_or_percentage', __('messages.doctor_referral.share_in').(':'),['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
+                        {{ Form::text('shared_in_amount_or_percentage', null, ['class' => 'form-control form-control-solid', 'id' => 'share_in']) }}
                     </div>
                 </div>
                 <div class="text-right mt-5">

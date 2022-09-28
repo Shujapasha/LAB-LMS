@@ -21,6 +21,7 @@ use App\Models\PatientCase;
 use App\Models\Prescription;
 use App\Models\User;
 use App\Models\Vaccination;
+use App\Models\RadiologyTest;
 use App\Queries\PatientDataTable;
 use App\Repositories\PatientRepository;
 use DataTables;
@@ -82,7 +83,11 @@ class PatientController extends AppBaseController
     {
         $bloodGroup = getBloodGroups();
 
-        return view('patients.create', compact('bloodGroup'));
+        $doctorReferrals = getDoctorsReferrals();
+        // dd($doctorReferrals);
+        $doctorRadiologyTest = getRadiologyTest();
+        // dd($doctorRadiologyTest);
+        return view('patients.create', compact('bloodGroup','doctorReferrals','doctorRadiologyTest'));
     }
 
     /**
@@ -191,6 +196,21 @@ class PatientController extends AppBaseController
 
         return $this->sendSuccess('Patient deleted successfully.');
     }
+
+
+    /**
+     * @param  int  $id
+     *
+     * @return JsonResponse
+     */
+    public function radiologyTest($id)
+    {
+        $radiologyTest = RadiologyTest::findOrFail($id);
+        // dd($radiologyTest);
+        return $this->sendResponse($radiologyTest, 'StandardCharge retrieved successfully.');
+        // return $this->sendSuccess('Status updated successfully.');
+    }
+
 
     /**
      * @param  int  $id

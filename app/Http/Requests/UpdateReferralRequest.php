@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Referral;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateReferralRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateReferralRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,6 @@ class UpdateReferralRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return Referral::$rules;
     }
 }

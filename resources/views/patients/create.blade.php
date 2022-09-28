@@ -45,6 +45,8 @@
 @endsection
 @section('scripts')
     <script>
+        let doctorRadiologyTest = '<?php echo $doctorRadiologyTest;?>';
+        let patientUrl = "{{url('patients')}}"
         let utilsScript = "{{asset('assets/js/int-tel/js/utils.min.js')}}";
         let isEdit = false;
         let defaultAvatarImageUrl = "{{ asset('assets/img/avatar.png') }}";

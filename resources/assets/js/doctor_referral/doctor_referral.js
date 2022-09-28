@@ -89,6 +89,11 @@ $(document).ready(function () {
         });
     });
 
+
+    $(document).on('change', '#category', function (event) {
+        ($(this).val() == 'shared') ? $("#share_in").parent().toggleClass('hide') : $("#share_in").parent().addClass('hide');
+    });
+
     $(document).on('click', '.edit-btn', function (event) {
         if (ajaxCallIsRunning) {
             return;
@@ -105,8 +110,12 @@ $(document).ready(function () {
             success: function (result) {
                 if (result.success) {
                     $('#doctorDepartmentId').val(result.data.id);
-                    $('#editTitle').val(result.data.name);
-                    $('#editDescription').val(result.data.designation_id);
+                    $('#editname').val(result.data.name);
+                    $('#editemail').val(result.data.email);
+                    $('#editprefix').val(result.data.phone);
+                    $('#editlocation').val(result.data.location);
+                    $('#editcategory').val(result.data.category);
+                    $('#share_in').val(result.data.shared_in_amount_or_percentage);
                     $('#editModal').modal('show');
                     ajaxCallCompleted();
                 }

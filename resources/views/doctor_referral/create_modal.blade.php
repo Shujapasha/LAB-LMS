@@ -44,9 +44,9 @@
                         {{ Form::label('category', __('messages.doctor_referral.category').':', ['class' => 'form-label required fs-6 fw-bolder text-gray-700 mb-3']) }}
                         {{ Form::select('category', ['internal' => 'Internal', 'shared' => 'Shared'], null, ['class' => 'form-select form-select-solid', 'id' => 'category', 'placeholder' => 'Select Category', 'data-control' => 'select2','required']) }}
                     </div>
-                    <div class="form-group col-sm-12 mb-5">
+                    <div class="form-group col-sm-12 mb-5 hide">
                         {{ Form::label('share_in', __('messages.doctor_referral.share_in').(':'),['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
-                        {{ Form::text('share_in', null, ['class' => 'form-control form-control-solid', 'required']) }}
+                        {{ Form::text('share_in', null, ['class' => 'form-control form-control-solid']) }}
                     </div>
                 </div>
                 <div class="text-right mt-5">
