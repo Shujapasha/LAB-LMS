@@ -1,15 +1,15 @@
 <?php
- 
+
 namespace App\Http\Controllers;
 
-use App\Exports\ReceptionistExport;
-use App\Http\Requests\CreateReceptionistRequest;
-use App\Http\Requests\UpdateReceptionistRequest;
+use App\Exports\PatientReceptionExport;
+use App\Http\Requests\CreatePatientReceptionRequest;
+use App\Http\Requests\UpdatePatientReceptionRequest;
 use App\Models\EmployeePayroll;
-use App\Models\Receptionist;
+use App\Models\PatientReception;
 use App\Models\User;
-use App\Queries\ReceptionistDataTable;
-use App\Repositories\ReceptionistRepository;
+use App\Queries\PatientReceptionDataTable;
+use App\Repositories\PatientReceptionRepository;
 use DataTables;
 use Exception;
 use Flash;
@@ -22,18 +22,20 @@ use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class ReceptionistController extends AppBaseController
+class PatientReceptionController extends AppBaseController
 {
-    /** @var ReceptionistRepository */
-    private $receptionistRepository;
 
-    public function __construct(ReceptionistRepository $receptionistRepo)
+    /** @var PatientReceptionRepository */
+    private $patientreceptionRepository;
+
+    public function __construct(PatientReceptionRepository $patientreceptionRepo)
     {
-        $this->receptionistRepository = $receptionistRepo;
+        $this->patientreceptionRepository = $patientreceptionRepo;
     }
 
+    
     /**
-     * Display a listing of the Receptionist.
+     * Display a listing of the PatientReception.
      *
      * @param  Request  $request
      *
@@ -44,18 +46,18 @@ class ReceptionistController extends AppBaseController
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return Datatables::of((new ReceptionistDataTable())->get($request->only(['status'])))
+            return Datatables::of((new PatientReceptionDataTable())->get($request->only(['status'])))
                 ->addColumn(User::IMG_COLUMN, function (Receptionist $receptionist) {
                     return $receptionist->user->image_url;
                 })->make(true);
         }
         $data['statusArr'] = Receptionist::STATUS_ARR;
 
-        return view('receptionists.index', $data);
+        return view('patient_reception.index', $data);
     }
 
     /**
-     * Show the form for creating a new Receptionist.
+     * Show the form for creating a new PatientReception.
      *
      * @return Factory|View
      */
@@ -63,24 +65,24 @@ class ReceptionistController extends AppBaseController
     {
         $bloodGroup = getBloodGroups();
 
-        return view('receptionists.create', compact('bloodGroup'));
+        return view('patient_reception.create', compact('bloodGroup'));
     }
 
     /**
-     * Store a newly created Receptionist in storage.
+     * Store a newly created PatientReception in storage.
      *
-     * @param  CreateReceptionistRequest  $request
+     * @param  CreatePatientReceptionRequest  $request
      *
      * @return RedirectResponse|Redirector
      */
-    public function store(CreateReceptionistRequest $request)
+    public function store(CreatePatientReceptionRequest $request)
     {
+
         $input = $request->all();
-        $input['status'] = isset($input['status']) ? 1 : 0;
+        
+        $patientreception = $this->patientreceptionRepository->store($input);
 
-        $receptionist = $this->receptionistRepository->store($input);
-
-        Flash::success('Receptionist saved successfully.');
+        Flash::success('Patient Reception Saved Successfully.');
 
         return redirect(route('receptionists.index'));
     }
@@ -131,7 +133,7 @@ class ReceptionistController extends AppBaseController
 
         $receptionist = $this->receptionistRepository->update($receptionist, $input);
 
-        Flash::success('Receptionist updated successfully.');
+        Flash::success('Receptionist Updated Successfully.');
 
         return redirect(route('receptionists.index'));
     }

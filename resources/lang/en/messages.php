@@ -176,6 +176,7 @@ return [
         'password'              => 'Password',
         'password_confirmation' => 'Confirm Password',
         'address1'              => 'Address 1',
+        'remarks'              => 'Remarks',
         'address2'              => 'Address 2',
         'city'                  => 'City',
         'zip'                   => 'Zip',
@@ -240,6 +241,14 @@ return [
         'receptionist_details' => 'Receptionist Details',
         'new_receptionist'     => 'New Receptionist',
         'edit_receptionist'    => 'Edit Receptionist',
+    ],
+    // receptionist keys
+    'patient_reception'                      => [
+        'patient_reception'         => 'Patient Reception',
+        'patient_reception'        => 'Patient Receptions',
+        'patient_reception_details' => 'Patient Reception Details',
+        'new_patient_reception'     => 'New Patient Reception',
+        'edit_patient_reception'    => 'Edit Patient Reception',
     ],
 
     // insurance keys

@@ -865,6 +865,11 @@ Route::group([
         Route::get('receptionists', 'ReceptionistController@index')->name('receptionists.index')->middleware('modules');
         Route::post('receptionists/{receptionist}/active-deactive', 'ReceptionistController@activeDeactiveStatus');
         Route::get('export-receptionists', 'ReceptionistController@receptionistExport')->name('receptionists.excel');
+        
+        Route::resource('patient-reception', 'PatientReceptionController');
+        Route::get('patient-reception', 'PatientReceptionController@index')->name('patient-reception.index')->middleware('modules');
+        Route::post('patient-reception/{patient-reception}/active-deactive', 'PatientReceptionController@activeDeactiveStatus');
+        Route::get('export-patient-reception', 'PatientReceptionController@receptionistExport')->name('receptionists.excel');
 
         Route::get('export-ambulances', 'AmbulanceController@ambulanceExport')->name('ambulance.excel');
         Route::get('export-incomes', 'IncomeController@incomeExport')->name('incomes.excel');
