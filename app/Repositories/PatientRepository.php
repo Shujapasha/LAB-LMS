@@ -9,6 +9,9 @@ use App\Models\Patient;
 use App\Models\Receptionist;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Models\Referral;
+use App\Models\PatientsTest;
+use App\Models\ReferralPatientShare;
 use Auth;
 use Carbon\Carbon;
 use Exception;
@@ -56,11 +59,22 @@ class PatientRepository extends BaseRepository
     public function store($input, $mail = true)
     {
         try {
+            // dd($input);
+            // dd($discount);
+            $p_referral = $input['patient_referral'];
+            $referral = Referral::find($p_referral);
+            // dd($referral->shared_in_amount_or_percentage);
+            $share_in_amount_p = $referral->shared_in_amount_or_percentage;
+            // $referral->shared_in_amount_or_percentage  = $share_in_amount;
+            // $result = $referral->save();
+            // dd($result);
             $input['phone'] = preparePhoneNumber($input, 'phone');
             $input['department_id'] = Department::whereName('Patient')->first()->id;
-            $input['password'] = Hash::make($input['password']);
+            $input['password'] = Hash::make('123456789');
             $input['dob'] = (! empty($input['dob'])) ? $input['dob'] : null;
             $user = User::create($input);
+
+
             if ($mail) {
                 $user->sendEmailVerificationNotification();
             }
@@ -83,6 +97,39 @@ class PatientRepository extends BaseRepository
             ];
             Subscription::create($subscription);
             */
+            $net_amount = 0;
+            if(isset($input['patient_test'])){
+                for ($i = 0; $i < count($input['patient_test']); $i++) {
+
+                        $patient_test[] = [
+                           'patient_id' => $patient->id,
+                           'referral_id' => $input['patient_referral'],
+                           'radiology_tests_id' => $input['patient_test'][$i],
+                           'fee' => $input['Fee'][$i],
+                           'discount_by' => $input['discount_by'][$i],
+                           'discount' => $input['Discount'][$i],
+                           'net_amount' => $input['NetAmount'][$i],
+                           'created_at' => now(),
+                           'updated_at' => now(),
+                       ];
+                  if($input['discount_by'][$i] == 1){
+                    $net_amount = $net_amount + $input['NetAmount'][$i] - $input['Discount'][$i];
+                  }    
+                }
+
+                // dd($patient_test);
+               $result = PatientsTest::insert($patient_test);
+               // dd($result);
+               $referral_shared_amount = $net_amount * $share_in_amount_p / 100;
+
+               ReferralPatientShare::create([
+                'patient_id' => $patient->id,
+                'referral_id' => $input['patient_referral'],
+                'referral_shared_amount' => $referral_shared_amount
+                ]);
+               // dd($referral_shared_amount);
+            }
+
 
             if (! empty($address = Address::prepareAddressArray($input))) {
                 Address::create(array_merge($address, ['owner_id' => $ownerId, 'owner_type' => $ownerType]));
@@ -90,6 +137,7 @@ class PatientRepository extends BaseRepository
 
             $user->update(['owner_id' => $ownerId, 'owner_type' => $ownerType]);
             $user->assignRole($input['department_id']);
+            // dd($referral_shared_amount);
         } catch (Exception $e) {
             throw new UnprocessableEntityHttpException($e->getMessage());
         }

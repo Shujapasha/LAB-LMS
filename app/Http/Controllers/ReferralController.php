@@ -56,6 +56,9 @@ class ReferralController extends AppBaseController
     public function store(CreateReferralRequest $request)
     {
         $input = $request->all();
+        $input['shared_in_type'] = 'percentage';
+        $input['shared_in_amount_or_percentage'] = $input['share_in'];
+        // dd($input);
         $this->doctorReferralRepository->create($input);
 
         return $this->sendSuccess('Doctor Referral saved successfully.');

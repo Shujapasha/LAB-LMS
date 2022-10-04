@@ -66,7 +66,7 @@
             {{ Form::select('patient_referral', $doctorReferrals, null, ['class' => 'form-select form-select-solid fw-bold', 'id' => 'bloodGroup', 'placeholder' => 'Select Referral', 'data-control' => 'select2', 'tabindex' => "9"]) }}
         </div>
     </div>
-    <div class="col-md-3">
+    <!-- <div class="col-md-3">
         <div class="form-group mb-5" data-kt-password-meter="true">
             {{ Form::label('password', __('messages.user.password').':', ['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
             <span class="required"></span>
@@ -91,7 +91,7 @@
                 <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="form-group col-md-4 mb-5">
         <div class="row2">
             {{ Form::label('image', __('messages.profile.profile').':', ['class' => 'fs-5 fw-bold mb-2 d-block']) }}

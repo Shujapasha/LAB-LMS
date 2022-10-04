@@ -20,6 +20,7 @@ return [
     'receptionists'                     => 'Receptionists',
     'pharmacists'                       => 'Pharmacists',
     'accountants'                       => 'Accountants',
+    'referral'                          => 'Referral',
     'appointments'                      => 'Appointments',
     'insurances'                        => 'Insurances',
     'investigation_reports'             => 'Investigation Reports',

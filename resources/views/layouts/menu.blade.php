@@ -45,6 +45,8 @@
     </div>
 @endmodule
 
+
+
 {{--Appointments--}}
 @module('Appointments',$modules)
 @if(isFeatureAllowToUse('appointments.index'))
@@ -60,7 +62,7 @@
 
 {{-- Billing --}}
 <?php
-$billingMGT = getMenuLinks(\App\Models\User::MAIN_BILLING_MGT)
+$billingMGT = getMenuLinks(\App\Models\User::MAIN_BILLING_MGT);
 ?>
 @if ($billingMGT)
     <div class="menu-item menu-accordion side-menus">
@@ -153,6 +155,18 @@ $doctorMGT = getMenuLinks(\App\Models\User::MAIN_DOCTOR)
         </a>
     </div>
 @endif
+
+{{--Referrals--}}
+@module('Referral',$modules)
+    <div class="menu-item side-menus">
+        <a class="menu-link menu-text-wrap {{ Request::is('doctor-referrals*') ? 'active' : '' }}"
+           href="{{ route('doctor-referrals.index') }}">
+            <span class="menu-icon"><i class="fas fa-file-invoice"></i></span>
+            <span class="menu-title">{{ __('messages.referral') }}</span>
+        </a>
+    </div>
+@endmodule
+
 {{--Diagnosis Test--}}
 <?php
 $diagnosisMGT = getMenuLinks(\App\Models\User::MAIN_DIAGNOSIS)

@@ -87,7 +87,7 @@ class Patient extends Model
         'first_name' => 'required',
         'last_name'  => 'required',
         'email'      => 'required|email:filter|is_unique:users,email',
-        'password'   => 'nullable|same:password_confirmation|min:6',
+        // 'password'   => 'nullable|same:password_confirmation|min:6',
         'gender'     => 'required',
         'dob'        => 'nullable|date',
         'phone'      => 'nullable|numeric',
@@ -116,6 +116,14 @@ class Patient extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+    * @return BelongsTo
+    */
+    public function patientTest()
+    {
+        return $this->belongsToMany(PatientsTest::class, 'patient_id');
     }
 
     /**
