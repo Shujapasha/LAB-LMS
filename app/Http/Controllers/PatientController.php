@@ -84,10 +84,10 @@ class PatientController extends AppBaseController
         $bloodGroup = getBloodGroups();
 
         $doctorReferrals = getDoctorsReferrals();
-        // dd($doctorReferrals);
         $doctorRadiologyTest = getRadiologyTest();
-        // dd($doctorRadiologyTest);
-        return view('patients.create', compact('bloodGroup','doctorReferrals','doctorRadiologyTest'));
+        $token = getPatientToken();
+
+        return view('patients.create', compact('bloodGroup','doctorReferrals','doctorRadiologyTest','token'));
     }
 
     /**
@@ -125,6 +125,8 @@ class PatientController extends AppBaseController
         $data = $this->patientRepository->getPatientAssociatedData($patientId);
         $advancedPaymentRepo = App::make(AdvancedPaymentRepository::class);
         $patients = $advancedPaymentRepo->getPatients();
+        $getTestDetails = $advancedPaymentRepo->getTestDetails($patientId);
+        // dd($getTestDetails);
         $user = Auth::user();
         if ($user->hasRole('Doctor')) {
             $vaccinationPatients = getPatientsList($user->owner_id);
@@ -134,7 +136,7 @@ class PatientController extends AppBaseController
         $vaccinations = Vaccination::toBase()->pluck('name', 'id')->toArray();
         natcasesort($vaccinations);
 
-        return view('patients.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients'));
+        return view('patients.show', compact('data', 'patients', 'getTestDetails', 'vaccinations', 'vaccinationPatients'));
     }
 
     /**

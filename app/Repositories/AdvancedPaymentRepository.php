@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\AdvancedPayment;
 use App\Models\Notification;
 use App\Models\Patient;
+use App\Models\PatientsTest;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
@@ -48,11 +49,17 @@ class AdvancedPaymentRepository extends BaseRepository
     public function getPatients()
     {
         /** @var Patient $patients */
-        $patients = Patient::with('user')->get()->where('user.status', '=', 1)->pluck('user.full_name', 'id')->sort();
+        // $patients = Patient::with('user')->with('patientTest')->get();
+        // dd($patients);
+        $patients = Patient::with('user')->with('patientTest')->get()->where('user.status', '=', 1)->pluck('user.full_name', 'id')->sort();
 
         return $patients;
     }
 
+    public function getTestDetails($patientId){
+        $testDetails = PatientsTest::select('patients_tests.*','radiology_tests.test_name','referrals.name')->leftjoin('radiology_tests', 'patients_tests.radiology_tests_id', 'radiology_tests.id')->leftjoin('referrals', 'patients_tests.referral_id', 'referrals.id')->where('patients_tests.patient_id',$patientId)->get();
+        return $testDetails;
+    }
     /**
      * @param  array  $input
      */

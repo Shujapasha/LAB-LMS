@@ -173,6 +173,34 @@
                                     class="fw-bolder fs-6 text-gray-800 me-2">{{ !empty($data->user->updated_at) ? $data->user->updated_at->diffForHumans() : __('messages.common.n/a') }}</span>
                             </div>
                         </div>
+                        <div class="row mb-7">
+                            <div class="col-lg-12">
+                                <table class="display table table-responsive-sm table-striped align-middle table-row-dashed fs-6 gy-5 gx-5 dataTable no-footer w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Test Name</th>
+                                            <th>Referral</th>
+                                            <th>Fee</th>
+                                            <th>Discount By</th>
+                                            <th>Discount</th>
+                                            <th>Net Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="fw-bold">
+                                         @foreach($getTestDetails as $detail)
+                                            <tr>
+                                                <td>{{ $detail->test_name }}</td>
+                                                <td>{{ $detail->name }}</td>
+                                                <td>{{ $detail->fee }}</td>
+                                                <td>{{ ($detail->discount_by == 1) ? 'Referral' : 'Gilani Altrasound' }}</td>
+                                                <td>{{ $detail->discount }}</td>
+                                                <td>{{ $detail->net_amount }}</td>
+                                            </tr>
+                                         @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
                     </div>
                 </div>
             </div>

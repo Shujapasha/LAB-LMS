@@ -287,6 +287,14 @@ function getRadiologyCateNo()
     return $serial;
 }
 
+function getPatientToken($date = null){
+    $date = ($date == null)? date('y-m-d') : $date;
+    $check_dd = date('ymd',strtotime($date));
+    $serial_no = Patient::select('serial_no')->orderBy('serial_no','desc')->take(1)->where('serial_no', 'like', $check_dd."%")->value('serial_no');
+    $serial = ($serial_no)? $serial_no + 1 : $check_dd.'0001';
+    return $serial;
+}
+
 /**
  * @return DoctorReferral
  */

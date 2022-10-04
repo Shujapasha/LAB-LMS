@@ -56,6 +56,8 @@ class Patient extends Model
     public $table = 'patients';
     public $fillable = [
         'user_id',
+        'serial_no',
+        'shift'
     ];
 
     const STATUS_ALL = 2;
@@ -123,7 +125,7 @@ class Patient extends Model
     */
     public function patientTest()
     {
-        return $this->belongsToMany(PatientsTest::class, 'patient_id');
+        return $this->hasMany(PatientsTest::class, 'patient_id');
     }
 
     /**

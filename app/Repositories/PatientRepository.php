@@ -67,11 +67,12 @@ class PatientRepository extends BaseRepository
             $share_in_amount_p = $referral->shared_in_amount_or_percentage;
             // $referral->shared_in_amount_or_percentage  = $share_in_amount;
             // $result = $referral->save();
-            // dd($result);
+            // dd($result);serial_no,shift
             $input['phone'] = preparePhoneNumber($input, 'phone');
             $input['department_id'] = Department::whereName('Patient')->first()->id;
             $input['password'] = Hash::make('123456789');
             $input['dob'] = (! empty($input['dob'])) ? $input['dob'] : null;
+            // dd($input['serial_no']);
             $user = User::create($input);
 
 
@@ -83,7 +84,11 @@ class PatientRepository extends BaseRepository
                 $mediaId = storeProfileImage($user, $input['image']);
             }
 
-            $patient = Patient::create(['user_id' => $user->id]);
+            $patient = Patient::create([
+                'user_id' => $user->id,
+                'serial_no' => $input['serial_no'],
+                'shift' => $input['shift']
+            ]);
 
             $ownerId = $patient->id;
             $ownerType = Patient::class;

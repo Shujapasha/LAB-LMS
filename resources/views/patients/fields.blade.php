@@ -2,6 +2,18 @@
 <div class="row gx-10 mb-5">
     <div class="col-md-6">
         <div class="form-group mb-5">
+            {{ Form::label('serial_no', 'Token No', ['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
+            {{ Form::text('serial_no', $token , ['class' => 'form-control form-control-solid', 'readonly']) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group mb-5">
+            {{ Form::label('shift', 'Shift', ['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}
+            {{ Form::select('shift', ['morning' => 'Morning', 'evening' => 'Evening'], null, ['class' => 'form-select form-select-solid fw-bold', 'id' => 'shift', 'placeholder' => 'Select Shift', 'data-control' => 'select2', 'tabindex' => "9"]) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group mb-5">
             {{ Form::label('first_name', __('messages.user.first_name').':', ['class' => 'form-label fs-6 fw-bolder text-gray-700 mb-3']) }}<span class="required"></span>
             {{ Form::text('first_name', null, ['class' => 'form-control form-control-solid', 'required', 'id' => 'firstName','tabindex' => '1']) }}
         </div>
