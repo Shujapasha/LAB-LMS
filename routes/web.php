@@ -250,6 +250,8 @@ Route::group([
         function () {
             Route::get('patients/{patient}', 'PatientController@show')->where('patient',
                 '[0-9]+')->name('patients.show');
+            Route::get('patients/{patient}/pdf', 'PatientController@convertToPdf')
+                ->where('patient', '[0-9]+');
             Route::get('patient/{patient?}', 'PatientController@getBirthDate')->name('patients.birthDate');
         });
 

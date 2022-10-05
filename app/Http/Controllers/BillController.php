@@ -195,6 +195,8 @@ class BillController extends AppBaseController
      */
     public function convertToPdf(Bill $bill)
     {
+        error_reporting(0);
+        set_time_limit(300);
         $bill->billItems;
         $data = $this->billRepository->getSyncListForCreate($bill->id);
         $data['bill'] = $bill;

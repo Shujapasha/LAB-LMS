@@ -24,6 +24,7 @@ use App\Models\Vaccination;
 use App\Models\RadiologyTest;
 use App\Queries\PatientDataTable;
 use App\Repositories\PatientRepository;
+use Barryvdh\DomPDF\Facade as PDF;
 use DataTables;
 use Exception;
 use Flash;
@@ -137,6 +138,26 @@ class PatientController extends AppBaseController
         natcasesort($vaccinations);
 
         return view('patients.show', compact('data', 'patients', 'getTestDetails', 'vaccinations', 'vaccinationPatients'));
+    }
+
+    /**
+     * @param  int  $patientId
+     *
+     * @return Factory|RedirectResponse|Redirector|ViewPDF
+     */
+
+    public function convertToPdf(Bill $bill)
+    {
+        // error_reporting(0);
+        // set_time_limit(300);
+        // $bill->billItems;
+        // $data = $this->billRepository->getSyncListForCreate($bill->id);
+        // $data['bill'] = $bill;
+        $data['bill'] = 'abc';
+        // $pdf = PDF::loadView('patients.patient_pdf', $data);
+        // dd($pdf);
+        // return $pdf->stream('patient.pdf');
+        return view('patients.patient_pdfs', compact('data'));
     }
 
     /**
